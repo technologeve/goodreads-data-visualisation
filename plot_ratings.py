@@ -91,7 +91,7 @@ def compare_personal_to_public_rating(df, colour, save_plots, year):
     plt.ylim(0,5.5)
 
     if save_plots is True:
-        plt.savefig(os.path.join("rating", "rating_public_vs_pesonal.png"))
+        plt.savefig(os.path.join(f"{year}rating", "rating_public_vs_pesonal.png"))
 
     plt.show()
 
