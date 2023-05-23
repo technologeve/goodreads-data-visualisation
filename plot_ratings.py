@@ -1,7 +1,5 @@
 """ Plots based on the ratings a user gives books. """
 
-__author__ = "Eve Sherratt"
-
 # Standard library imports
 import os
 
@@ -37,6 +35,7 @@ def group_publishers_with_similar_names(df):
                           unique_publishers, scorer=fuzz.token_sort_ratio)
         x = pd.DataFrame(y, columns=["pub","score"])
 
+        # Filter to sufficiently similar publisher names
         similar_names = x[x["score"] > 78]
 
         if similar_names.shape[0] != 1:
@@ -213,7 +212,6 @@ def average_rating_per_month(df, colour, save_plots, year):
         plt.savefig(os.path.join(f"{year}rating", "rating_monthly.png"))
 
     plt.show()
-
 
 def main():
 
