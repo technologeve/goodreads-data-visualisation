@@ -51,6 +51,7 @@ def parse_goodreads_csv(file, year=None):
 
 
 def filter_by_month(df, year):
+    """ Group dataframe by month read. """
 
     if year != "":
         # Count number of books read / month
