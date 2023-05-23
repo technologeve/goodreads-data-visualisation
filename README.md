@@ -12,8 +12,12 @@ python -m plot_rating -g example_goodreads_library_export.csv
 ```
 
 Additional settings:
+
+
 `-c` allows the user to specify the colour of the data points
-`-y` allows the user to filter data to a specified year, YYYY
+
+ `-y` allows the user to filter data to a specified year, YYYY
+
  `-s` saves each plot as a png
 
 **Example plots**
