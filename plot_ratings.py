@@ -186,6 +186,28 @@ def plot_rating_given_publisher(df, colour, save_plots, year):
 
     plt.show()
 
+def plot_rating_given_book_length(df, colour, save_plots, year):
+    """ Display rating given number of pages in book. """
+
+    # Scatter plot
+    my_plot = plt.scatter(df["Number of Pages"], df["My Rating"], color=colour)
+
+    # Axis and title formatting
+    plt.xlabel("Number of pages")
+    plt.ylabel("Rating")
+    make_y_axis_out_of_five(plt)
+
+    plt.title(f"Rating given book length {year}")
+
+    # Display book title on hover
+    add_title_labels(my_plot, df)
+
+    # Save plot as png
+    if save_plots is True:
+        plt.savefig(os.path.join(f"{year}rating", "rating_given_book_length.png"))
+
+    plt.show()
+
 def average_rating_per_month(df, colour, save_plots, year):
     """ Display the average user rating per month, optionally filtered to a specific year. """
 
@@ -233,6 +255,7 @@ def main():
     plot_rating_given_publish_date(df, args.colour, args.save_plots, args.year)
     plot_rating_given_upload_and_read_time_diff(df, args.colour, args.save_plots, args.year)
     plot_rating_given_publisher(df, args.colour, args.save_plots, args.year)
+    plot_rating_given_book_length(df, args.colour, args.save_plots, args.year)
 
     # Plots filtered by month
     monthly_df = filter_by_month(df, args.year)
