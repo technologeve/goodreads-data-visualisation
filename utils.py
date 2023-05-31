@@ -26,7 +26,7 @@ def make_y_axis_out_of_five(plt):
 
 def rotate_and_shrink_x_axis(plt, x_axis):
     if x_axis.size > 12:
-        plt.xticks(rotation=-90, size=6)
+        plt.xticks(rotation=90, size=6)
 
 def parse_standard_arguments():
 
