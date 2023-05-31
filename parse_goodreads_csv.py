@@ -65,7 +65,8 @@ def filter_by_month(df, year):
 
     else:
         # Group by month and year
-        month_total = df.groupby([df["Date Read"].dt.month_name(), df["Year Read"]]).mean().unstack()
+        month_total = df.groupby([df["Date Read"].dt.month_name(), df["Year Read"]]).agg({"My Rating": "mean",
+                                                                                           "Number of Pages":'sum'}).unstack()
         month_total = month_total.reindex(MONTH_ORDER, axis=0)
 
     return month_total
