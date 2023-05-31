@@ -196,7 +196,7 @@ def average_rating_per_month(df, colour, save_plots, year):
         c_map = colors.LinearSegmentedColormap.from_list("", [(0., colour), (1.0, '#21e5ff')])
 
         # Create bar chart
-        df["My Rating"].plot(kind='bar', colormap=c_map) #, figsize=(11,7))
+        df["My Rating"].plot(kind='bar', colormap=c_map)
 
         # Add legend
         plt.legend(title="Year")
