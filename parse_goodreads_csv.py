@@ -11,7 +11,8 @@ def parse_goodreads_csv(file, year=None):
     """ Parse user reading data exported from Goodreads as a csv.
 
     Keyword arguments:
-    file:   The filepath to the CSV file exported from a user's Goodreads account.
+    file:   The filepath to the CSV file exported from a user's
+            Goodreads account.
     year:   Optionally, filter to only parse data from a specified year.
 
     """
@@ -30,12 +31,12 @@ def parse_goodreads_csv(file, year=None):
         df["Month Read"] = df["Date Read"].dt.strftime("%Y-%b")
     df["Year Read"] = df["Date Read"].dt.year.astype("Int64")
 
-
     # Drop any currently reading
     df = df[df["Exclusive Shelf"] != "currently-reading"]
 
     # Drop unused columns
     df = df.drop(["Owned Copies", "Bookshelves with positions"], axis=1)
+    df = df.dropna(subset=["Date Read"])
 
     # Filter by year read if provided
     if year:
@@ -55,18 +56,20 @@ def filter_by_month(df, year):
 
     if year != "":
         # Count number of books read / month
-        month_total = df.groupby(["Month Read"], sort=False).agg({"My Rating": "mean",
-            "Average Rating": "mean", "Number of Pages":'sum', "Year Published": "mean",
-            "Original Publication Year": "mean", "Year Read": "mean"})
+        month_total = df.groupby(
+            ["Month Read"], sort=False).agg({
+                "My Rating": "mean", "Average Rating": "mean",
+                "Number of Pages": 'sum', "Year Published": "mean",
+                "Original Publication Year": "mean", "Year Read": "mean"})
 
         # Data formatting
         df["Number of Pages"] = df["Number of Pages"].astype('Int64')
 
-
     else:
         # Group by month and year
-        month_total = df.groupby([df["Date Read"].dt.month_name(), df["Year Read"]]).agg({"My Rating": "mean",
-                                                                                           "Number of Pages":'sum'}).unstack()
+        month_total = df.groupby([df["Date Read"].dt.month_name(),
+                                  df["Year Read"]]).agg(
+            {"My Rating": "mean", "Number of Pages": "sum"}).unstack()
         month_total = month_total.reindex(MONTH_ORDER, axis=0)
 
     return month_total
