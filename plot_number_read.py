@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 from utils import rotate_and_shrink_x_axis, parse_standard_arguments
 from parse_goodreads_csv import filter_by_month, parse_goodreads_csv
 
+
 def plot_number_of_books_over_time(df, colour, save_plots, year):
     """ Display the number of books a user has read over time. """
 
@@ -33,12 +34,14 @@ def plot_number_of_books_over_time(df, colour, save_plots, year):
 
     plt.show()
 
+
 def pages_read_per_month(monthly_df, colour, save_plots, year):
     """ Display the number of pages a user has read over time. """
 
     if year == "":
         # Set a colour map using the user specified colour
-        c_map = colors.LinearSegmentedColormap.from_list("", [(0., colour), (1.0, '#21e5ff')])
+        c_map = colors.LinearSegmentedColormap.from_list(
+            "", [(0., colour), (1.0, '#21e5ff')])
 
         # Create bar chart
         monthly_df["Number of Pages"].plot(kind='bar', colormap=c_map)
@@ -48,8 +51,8 @@ def pages_read_per_month(monthly_df, colour, save_plots, year):
         plt.tight_layout(pad=3)
 
     else:
-        plt.bar(monthly_df.index, monthly_df["Number of Pages"], color=colour, width=0.5)
-
+        plt.bar(monthly_df.index, monthly_df["Number of Pages"],
+                color=colour, width=0.5)
 
     # Title, axes labels
     plt.xlabel("Month")
@@ -73,7 +76,6 @@ def main():
     if args.save_plots is True:
         if not os.path.exists(f"{args.year}number_read"):
             os.makedirs(f"{args.year}number_read")
-
 
     # Load data
     df = parse_goodreads_csv(args.goodreads_csv, args.year)
